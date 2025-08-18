@@ -5,17 +5,17 @@ from libprobe.exceptions import CheckException
 
 _connections: dict[
     tuple[str, str, str, int],
-    tuple[float, asyncio.Lock, SiriDBConn|None]] = {}
+    tuple[float, asyncio.Lock, SiriDBConn | None]] = {}
 
 
 async def _get_conn(username: str, password: str, database: str, host: str,
-                   port: int):
+                    port: int):
     key = (username, database, host, port)
     expire_ts, lock, conn = _connections.get(key, (0.0, asyncio.Lock(), None))
     if conn is None or (time.time() > expire_ts and not lock.locked()):
         conn = SiriDBConn(
             username=username,
-            password=password ,
+            password=password,
             dbname=database,
             server=host,
             port=port)
