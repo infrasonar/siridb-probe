@@ -1,9 +1,9 @@
-[![CI](https://github.com/infrasonar/http-probe/workflows/CI/badge.svg)](https://github.com/infrasonar/http-probe/actions)
-[![Release Version](https://img.shields.io/github/release/infrasonar/http-probe)](https://github.com/infrasonar/http-probe/releases)
+[![CI](https://github.com/infrasonar/siridb-probe/workflows/CI/badge.svg)](https://github.com/infrasonar/siridb-probe/actions)
+[![Release Version](https://img.shields.io/github/release/infrasonar/siridb-probe)](https://github.com/infrasonar/siridb-probe/releases)
 
-# InfraSonar HTTP Probe
+# InfraSonar SiriDB Probe
 
-Documentation: https://docs.infrasonar.com/collectors/probes/http/
+Documentation: https://docs.infrasonar.com/collectors/probes/siridb/
 
 ## Environment variable
 
@@ -22,26 +22,35 @@ Variable            | Default                        | Description
 ## Docker build
 
 ```
-docker build -t http-probe . --no-cache
+docker build -t siridb-probe . --no-cache
+```
+
+## Config
+
+Example configuration:
+
+```yaml
+siridb:
+  config:
+    username: iris
+    password: siri
+    database: testdb
+    host: foo.local  # optional, defaults to asset.name
+    port: 9000  # optional, default is 9000
 ```
 
 ## Dry run
 
 Available checks:
-- `http`
+- `servers`
+- `series`
 
 Create a yaml file, for example _(test.yaml)_:
 
 ```yaml
 asset:
   name: "foo.local"
-  check: "http"
-  config:
-    uri: "http://example.com"
-    timeout: 5
-    verifySSL: true
-    withPayload: true
-    allowRedirects: true
+  check: "servers"
 ```
 
 Run the probe with the `DRY_RUN` environment variable set the the yaml file above.
@@ -49,4 +58,3 @@ Run the probe with the `DRY_RUN` environment variable set the the yaml file abov
 ```
 DRY_RUN=test.yaml python main.py
 ```
-# siridb-probe
