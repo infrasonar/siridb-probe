@@ -12,6 +12,5 @@ if __name__ == '__main__':
     }
 
     probe = Probe("siridb", version, checks)
+    probe.set_on_close(close_all)
     probe.start()
-    assert probe.loop
-    probe.loop.run_until_complete(close_all())

@@ -1,2 +1,2 @@
 siridb-connector==2.1.6
-libprobe==1.0.1
+libprobe==1.0.2
