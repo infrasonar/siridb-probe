@@ -29,7 +29,8 @@ async def check_series(
             (await conn.query(query, timeout=5))['series']
 
         query = 'count series length where type == float'
-        num_points_float = (await conn.query(query, timeout=5))['series_length']
+        num_points_float = \
+            (await conn.query(query, timeout=5))['series_length']
 
     num_series = num_series_string + num_series_integer + num_series_float
     num_points = num_points_string + num_points_integer + num_points_float

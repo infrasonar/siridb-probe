@@ -27,6 +27,8 @@ async def _get_conn(username: str, password: str, database: str, host: str,
             server=host,
             port=port)
         await conn.connect()
+        _connections[key] = time.time() + 900.0, asyncio.Lock(), conn
+
     return conn, lock
 
 
