@@ -6,14 +6,15 @@ async def check_servers(
         asset: Asset,
         asset_config: dict,
         config: dict) -> dict:
-    conn = await get_conn(asset_config, asset.name)
+    conn, lock = await get_conn(asset_config, asset.name)
+    async with lock:
+        query = (
+            'list servers '
+            'name,version,status,uptime,active_handles,active_tasks,'
+            'mem_usage,idle_percentage,fifo_files')
 
-    query = (
-        'list servers '
-        'name,version,status,uptime,active_handles,active_tasks,'
-        'mem_usage,idle_percentage,fifo_files')
+        data = await conn.query(query, timeout=5)
 
-    data = await conn.query(query)
     items = [{
         'name': server[0],
         'version': server[1],

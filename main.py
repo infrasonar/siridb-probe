@@ -12,3 +12,4 @@ if __name__ == '__main__':
 
     probe = Probe("siridb", version, checks)
     probe.start()
+    close_all()
